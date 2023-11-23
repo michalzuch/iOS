@@ -9,7 +9,7 @@ import Foundation
 
 enum Operation: String {
     case negate = "+ / -"
-    case decimal = "."
+    case decimal = ","
     case add = "+"
     case substract = "-"
     case multiply = "×"
