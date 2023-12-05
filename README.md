@@ -2,6 +2,9 @@
 Projects built during Mobile devices programming - Apple iOS classes at Jagiellonian University
 
 ## Calculator
+<img src="assets/Calculator.png" width=50%/>
+
+---
 ✅ 3.0 Simple calculator with addition + option to clear result + result button  
 ✅ 3.5 Remaining operations: multiplication, division and subtraction  
 ✅ 4.0 Subsequent actions on the result  
@@ -9,6 +12,9 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 ✅ 5.0 Scale to a tablet
 
 ## To-Do List
+<img src="assets/To Do.png" width=50%/>
+
+---
 ✅ 3.0 Display a list of predefined tasks (ArrayList)  
 ✅ 3.5 Display an image in the task view  
 ✅ 4.0 Delete (swiping) tasks  
