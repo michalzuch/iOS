@@ -8,22 +8,17 @@
 import SwiftUI
 
 struct ProductView: View {
-
-    let macbook = [
-        "MacBook Pro 14",
-        "$1.999",
-        "MacBook",
-        "MacBook Pro blasts forward with the M3, M3 Pro, and M3 Max chips. Built on 3‑nanometer technology and featuring an all-new GPU architecture, they’re the most advanced chips ever built for a personal computer. And each one brings more pro performance and capability."
-    ]
-    let macbbookBool = false
-
+    let product: Product
+    
     var body: some View {
         VStack {
-            Image(macbook[2])
+            Image(product.image ?? "MacBook")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
             HStack {
-                Text(macbook[0])
+                Text(product.name!)
                 Spacer()
-                Text(macbook[1])
+                Text("$\(product.price)")
             }
             .font(.title)
             .fontWeight(.heavy)
@@ -35,9 +30,9 @@ struct ProductView: View {
             }
             .fontWeight(.bold)
             ScrollView {
-                Text(macbook[3])
+                Text(product.info ?? "")
             }
-                .padding()
+            .padding()
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                 Spacer()
                 Text("Buy")
@@ -46,10 +41,10 @@ struct ProductView: View {
                     .padding()
                 Spacer()
             })
-            .disabled(!macbbookBool)
-            .background(macbbookBool ? .blue : .gray)
+            .disabled(product.available)
+            .background(product.available ? .blue : .gray)
             .cornerRadius(24)
-            if macbbookBool {
+            if product.available {
                 Label(
                     title: { Text("Available") },
                     icon: { Image(systemName: "checkmark.circle.fill") }
@@ -63,8 +58,4 @@ struct ProductView: View {
         }
         .padding(.all)
     }
-}
-
-#Preview {
-    ProductView()
 }

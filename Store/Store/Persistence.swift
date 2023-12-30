@@ -13,18 +13,29 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        let categories = [
-            ["Electronics", "🖥️"],
-            ["Fashion", "👔"],
-            ["Health", "💊"],
-            ["Sports", "🏎️"],
-            ["Pet Supplies", "🐶"]
-        ]
-        categories.forEach { category in
-            let newCategory = Category(context: viewContext)
-            newCategory.name = category.first
-            newCategory.image = category.last
+
+        let fixtureData = FixtureData()
+
+        fixtureData.data.forEach { category in
+            if let categoryName = category[0] as? String, let categoryImage = category[1] as? String {
+                let newCategory = Category(context: viewContext)
+                newCategory.name = categoryName
+                newCategory.image = categoryImage
+
+                if let products = category[2] as? [[Any]] {
+                    products.forEach { product in
+                        let newProduct = Product(context: viewContext)
+                        newProduct.name = product[0] as? String
+                        newProduct.price = Int16(product[1] as! Int)
+                        newProduct.image = product[2] as? String
+                        newProduct.info = product[3] as? String
+                        newProduct.available = product[4] as! Bool
+                        newProduct.category = newCategory
+                    }
+                }
+            }
         }
+
         do {
             try viewContext.save()
         } catch {

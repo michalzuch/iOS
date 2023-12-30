@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9424053A2B3E152D0011579F /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942405392B3E152D0011579F /* ProductListView.swift */; };
 		94AE93982B31EB8800B20701 /* FixtureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE93972B31EB8800B20701 /* FixtureData.swift */; };
 		94DD44342B30A60C006D5460 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DD44332B30A60C006D5460 /* ProductView.swift */; };
 		94F905E32B21E212009B9B82 /* StoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F905E22B21E212009B9B82 /* StoreApp.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		942405392B3E152D0011579F /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		94AE93972B31EB8800B20701 /* FixtureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureData.swift; sourceTree = "<group>"; };
 		94DD44332B30A60C006D5460 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		94F905DF2B21E212009B9B82 /* Store.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Store.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +64,7 @@
 				94F905E22B21E212009B9B82 /* StoreApp.swift */,
 				94F905E42B21E212009B9B82 /* ContentView.swift */,
 				94DD44332B30A60C006D5460 /* ProductView.swift */,
+				942405392B3E152D0011579F /* ProductListView.swift */,
 				94F905E62B21E214009B9B82 /* Assets.xcassets */,
 				94F905EB2B21E214009B9B82 /* Persistence.swift */,
 				94AE93972B31EB8800B20701 /* FixtureData.swift */,
@@ -151,6 +154,7 @@
 			files = (
 				94DD44342B30A60C006D5460 /* ProductView.swift in Sources */,
 				94F905EC2B21E214009B9B82 /* Persistence.swift in Sources */,
+				9424053A2B3E152D0011579F /* ProductListView.swift in Sources */,
 				94F905E52B21E212009B9B82 /* ContentView.swift in Sources */,
 				94AE93982B31EB8800B20701 /* FixtureData.swift in Sources */,
 				94F905E32B21E212009B9B82 /* StoreApp.swift in Sources */,
