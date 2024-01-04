@@ -22,38 +22,18 @@ struct ContentView: View {
     private var products: FetchedResults<Product>
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(categories) { category in
-                    NavigationLink {
-                        List {
-                            ForEach(products.filter { $0.category == category
-                            }) { product in
-                                NavigationLink {
-                                    ProductView(product: product)
-                                }
-                            label: {
-                                Image(product.image!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: UIScreen.main.bounds.width * 0.2)
-                                Divider()
-                                VStack {
-                                    Text(product.name!)
-                                    Text("\(product.price)")
-                                }
-                            }
-                            }
-                        }
-                        .navigationTitle(category.name!)
-                    } label: {
-                        Text(category.image!)
-                        Divider()
-                        Text(category.name!)
-                    }
+        TabView {
+            StoreView(categories: categories, products: products)
+                .tabItem {
+                    Image(systemName: "storefront.fill")
+                    Text("Store")
                 }
-            }
-            .navigationTitle("Categories")
+            
+            BagView()
+                .tabItem {
+                    Image(systemName: "bag.fill")
+                    Text("Bag")
+                }
         }
     }
 }

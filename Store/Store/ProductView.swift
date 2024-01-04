@@ -12,50 +12,88 @@ struct ProductView: View {
     
     var body: some View {
         VStack {
-            Image(product.image ?? "MacBook")
+            Image(product.image!)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-            HStack {
-                Text(product.name!)
-                Spacer()
-                Text("$\(product.price)")
-            }
-            .font(.title)
-            .fontWeight(.heavy)
+            Details(product: product)
             Divider()
                 .padding(.bottom)
-            HStack {
-                Text("Description")
-                Spacer()
-            }
-            .fontWeight(.bold)
-            ScrollView {
-                Text(product.info ?? "")
-            }
-            .padding()
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                Spacer()
-                Text("Buy")
-                    .bold()
-                    .foregroundStyle(.white)
-                    .padding()
-                Spacer()
-            })
-            .disabled(product.available)
-            .background(product.available ? .blue : .gray)
-            .cornerRadius(24)
+            Description(product: product)
+            BuyButton(product: product)
             if product.available {
-                Label(
-                    title: { Text("Available") },
-                    icon: { Image(systemName: "checkmark.circle.fill") }
-                )
+                AvailableLabel()
             } else {
-                Label(
-                    title: { Text("Not available") },
-                    icon: { Image(systemName: "xmark.circle.fill") }
-                )
+                NotAvailableLabel()
             }
         }
         .padding(.all)
+    }
+}
+
+private struct Details: View {
+    let product: Product
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(product.name!)
+                    .font(.title)
+                    .fontWeight(.heavy)
+                Text("$\(product.price)")
+            }
+            Spacer()
+        }
+    }
+}
+
+private struct Description: View {
+    let product: Product
+    
+    var body: some View {
+        HStack {
+            Text("Description")
+                .fontWeight(.bold)
+            Spacer()
+        }
+        ScrollView {
+            Text(product.info!)
+        }
+        .padding()
+    }
+}
+
+private struct BuyButton: View {
+    let product: Product
+    
+    var body: some View {
+        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Spacer()
+            Text("Buy")
+                .bold()
+                .foregroundStyle(.white)
+                .padding()
+            Spacer()
+        })
+        .disabled(product.available)
+        .background(product.available ? .blue : .gray)
+        .cornerRadius(24)
+    }
+}
+
+private struct AvailableLabel: View {
+    var body: some View {
+        Label(
+            title: { Text("Available") },
+            icon: { Image(systemName: "checkmark.circle.fill") }
+        )
+    }
+}
+
+private struct NotAvailableLabel: View {
+    var body: some View {
+        Label(
+            title: { Text("Not available") },
+            icon: { Image(systemName: "xmark.circle.fill") }
+        )
     }
 }
