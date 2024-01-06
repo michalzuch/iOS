@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import Foundation
 
 @main
 struct OAuthApp: App {
+    @StateObject var userAuthentication = UserAuthentication()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(userAuthentication)
         }
     }
 }

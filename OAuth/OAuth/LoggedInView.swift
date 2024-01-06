@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct LoggedInView: View {
+    @EnvironmentObject var userAuthentication: UserAuthentication
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: {
+            userAuthentication.isLoggedIn = false
+        }, label: {
+            Text("Log Out")
+                .padding(.all)
+                .foregroundStyle(.white)
+                .frame(width: UIScreen.main.bounds.width / 2)
+        })
+        .background(.blue)
+        .cornerRadius(25)
     }
 }
 
