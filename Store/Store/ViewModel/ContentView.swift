@@ -10,26 +10,28 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)],
         animation: .default)
     private var categories: FetchedResults<Category>
-    
+
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Product.name, ascending: true)],
         animation: .default)
     private var products: FetchedResults<Product>
-    
+
+    @ObservedObject var bag = Bag()
+
     var body: some View {
         TabView {
-            StoreView(categories: categories, products: products)
+            StoreView(categories: categories, products: products, bag: bag)
                 .tabItem {
                     Image(systemName: "storefront.fill")
                     Text("Store")
                 }
-            
-            BagView()
+
+            BagView(products: products, bag: bag)
                 .tabItem {
                     Image(systemName: "bag.fill")
                     Text("Bag")

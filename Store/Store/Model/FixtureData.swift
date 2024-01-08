@@ -85,7 +85,7 @@ struct FixtureData {
                 [
                     "Pencils x10",
                     10,
-                    "Pencils",
+                    "Pencil",
                     "Pencils are essential writing tools that come in a set of 10, providing you with a reliable and versatile option for various writing and drawing needs. With their graphite cores, these pencils offer smooth and consistent lines. The wooden barrels provide a comfortable grip, ensuring a pleasant writing experience. The set of 10 pencils allows you to have an ample supply for personal or professional use. Whether you're sketching, drafting, or simply jotting down notes, these pencils offer durability and versatility in a convenient package. Keep a set of pencils on hand for all your writing and artistic endeavors.",
                     true
                 ]
@@ -153,7 +153,7 @@ extension StoreApp {
         let categoryFetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let productFetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
         let viewContext = persistenceController.container.viewContext
-        
+
         do {
             let categories = try viewContext.fetch(categoryFetchRequest)
             let products = try viewContext.fetch(productFetchRequest)
@@ -163,17 +163,17 @@ extension StoreApp {
         }
         return false
     }
-    
+
     func loadData(viewContext: NSManagedObjectContext) {
         if !isDataLoaded() {
             let fixtureData = FixtureData()
-            
+
             fixtureData.data.forEach { category in
                 if let categoryName = category[0] as? String, let categoryImage = category[1] as? String {
                     let newCategory = Category(context: viewContext)
                     newCategory.name = categoryName
                     newCategory.image = categoryImage
-                    
+
                     if let products = category[2] as? [[Any]] {
                         products.forEach { product in
                             let newProduct = Product(context: viewContext)
@@ -187,7 +187,7 @@ extension StoreApp {
                     }
                 }
             }
-            
+
             do {
                 try viewContext.save()
             } catch {

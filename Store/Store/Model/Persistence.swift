@@ -9,19 +9,19 @@ import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
-
+    
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-
+        
         let fixtureData = FixtureData()
-
+        
         fixtureData.data.forEach { category in
             if let categoryName = category[0] as? String, let categoryImage = category[1] as? String {
                 let newCategory = Category(context: viewContext)
                 newCategory.name = categoryName
                 newCategory.image = categoryImage
-
+                
                 if let products = category[2] as? [[Any]] {
                     products.forEach { product in
                         let newProduct = Product(context: viewContext)
@@ -35,7 +35,7 @@ struct PersistenceController {
                 }
             }
         }
-
+        
         do {
             try viewContext.save()
         } catch {
@@ -44,9 +44,9 @@ struct PersistenceController {
         }
         return result
     }()
-
+    
     let container: NSPersistentContainer
-
+    
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Store")
         if inMemory {

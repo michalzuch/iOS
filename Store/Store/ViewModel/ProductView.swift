@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ProductView: View {
     let product: Product
-    
+    @ObservedObject var bag: Bag
+
     var body: some View {
         VStack {
             Image(product.image!)
@@ -19,7 +20,7 @@ struct ProductView: View {
             Divider()
                 .padding(.bottom)
             Description(product: product)
-            BuyButton(product: product)
+            BuyButton(product: product, bag: bag)
             if product.available {
                 AvailableLabel()
             } else {
@@ -30,9 +31,9 @@ struct ProductView: View {
     }
 }
 
-private struct Details: View {
+struct Details: View {
     let product: Product
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -46,9 +47,9 @@ private struct Details: View {
     }
 }
 
-private struct Description: View {
+struct Description: View {
     let product: Product
-    
+
     var body: some View {
         HStack {
             Text("Description")
@@ -62,11 +63,14 @@ private struct Description: View {
     }
 }
 
-private struct BuyButton: View {
+struct BuyButton: View {
     let product: Product
-    
+    @ObservedObject var bag: Bag
+
     var body: some View {
-        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+        Button(action: {
+            bag.increaseValue(product: product)
+        }, label: {
             Spacer()
             Text("Buy")
                 .bold()
@@ -74,13 +78,13 @@ private struct BuyButton: View {
                 .padding()
             Spacer()
         })
-        .disabled(product.available)
+        .disabled(!product.available)
         .background(product.available ? .blue : .gray)
         .cornerRadius(24)
     }
 }
 
-private struct AvailableLabel: View {
+struct AvailableLabel: View {
     var body: some View {
         Label(
             title: { Text("Available") },
@@ -89,7 +93,7 @@ private struct AvailableLabel: View {
     }
 }
 
-private struct NotAvailableLabel: View {
+struct NotAvailableLabel: View {
     var body: some View {
         Label(
             title: { Text("Not available") },

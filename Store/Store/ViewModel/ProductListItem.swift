@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductListItem: View {
     let product: Product
-    
+
     var body: some View {
         HStack {
             Image(product.image!)

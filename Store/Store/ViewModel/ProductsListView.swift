@@ -10,14 +10,15 @@ import SwiftUI
 struct ProductsListView: View {
     let category: Category
     let products: FetchedResults<Product>
-
+    @ObservedObject var bag: Bag
+    
     var body: some View {
         NavigationLink {
             List {
                 ForEach(products.filter { $0.category == category
                 }) { product in
                     NavigationLink {
-                        ProductView(product: product)
+                        ProductView(product: product, bag: bag)
                     }
                 label: {
                     ProductListItem(product: product)

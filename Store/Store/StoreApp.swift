@@ -14,7 +14,7 @@ struct StoreApp: App {
     init() {
         loadData(viewContext: persistenceController.container.viewContext)
     }
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
