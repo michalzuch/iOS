@@ -1,7 +1,7 @@
 # iOS
 Projects built during Mobile devices programming - Apple iOS classes at Jagiellonian University
 
-## Calculator
+## [Calculator](https://github.com/michalzuch/iOS/tree/main/Calculator/Calculator)
 <img src="assets/Calculator.png" width=50%/>
 
 ---
@@ -11,7 +11,7 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 ✅ 4.5 Percentage, negative sign, logarithm and power  
 ✅ 5.0 Scale to a tablet
 
-## To-Do List
+## [To-Do List](https://github.com/michalzuch/iOS/tree/main/To-Do%20List/To-Do%20List)
 <img src="assets/To Do.png" width=50%/>
 
 ---
@@ -21,7 +21,7 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 ✅ 4.5 Change the task status (including structure modification)  
 ✅ 5.0 Display status on the task list
 
-## Store
+## [Store](https://github.com/michalzuch/iOS/tree/main/Store/Store)
 <img src="assets/Store.png" width=50%/>
 
 ---
