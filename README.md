@@ -20,3 +20,13 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 ✅ 4.0 Delete (swiping) tasks  
 ✅ 4.5 Change the task status (including structure modification)  
 ✅ 5.0 Display status on the task list
+
+## Store
+<img src="assets/Store.png" width=50%/>
+
+---
+✅ 3.0 Create Product and Category models in Core Data  
+✅ 3.5 Load Data on application startup (Fixtures)  
+✅ 4.0 Create a product list with a product description subpage in a new view (data from Core Data)  
+✅ 4.5 Add option to add product to bag (TabView)  
+✅ 5.0 Add option to ad more than one instance of the same product to bag
