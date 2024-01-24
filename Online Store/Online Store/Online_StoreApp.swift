@@ -11,6 +11,7 @@ import CoreData
 @main
 struct Online_StoreApp: App {
     let persistenceController = PersistenceController.shared
+    let API = "http://127.0.0.1:3000"
 
     init() {
         loadData()

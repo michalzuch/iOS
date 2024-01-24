@@ -8,13 +8,11 @@
 import Foundation
 import CoreData
 
-let API = "http://127.0.0.1:3000"
-
 extension Online_StoreApp {
     func isDataLoaded() -> Bool {
+        let viewContext = persistenceController.container.viewContext
         let categoryFetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let productFetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
-        let viewContext = persistenceController.container.viewContext
 
         do {
             let categories = try viewContext.fetch(categoryFetchRequest)
@@ -28,96 +26,73 @@ extension Online_StoreApp {
 
     func loadData() {
         if !isDataLoaded() {
-            loadCategories()
-            loadProducts()
+            loadData(endpoint: "/categories", saveFunction: saveCategoryToCoreData(_:))
+            loadData(endpoint: "/products", saveFunction: saveProductToCoreData(_:))
         }
     }
 
-    func loadCategories() {
+    func saveCategoryToCoreData(_ jsonData: Dictionary<String, AnyObject>) {
         let viewContext = persistenceController.container.viewContext
-        let serverURL = API + "/categories"
-
-        let url = URL(string: serverURL)
-        let request = URLRequest(url: url!)
-        let session = URLSession(configuration: .default)
-
         let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: viewContext)
-        let dispatchGroup = DispatchGroup()
 
-        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: [])
-                if let object = json as? [Any] {
-                    for item in object as! [Dictionary<String, AnyObject>] {
-                        let name = item["name"] as! String
-                        let image = item["image"] as! String
+        let name = jsonData["name"] as! String
+        let image = jsonData["image"] as! String
 
-                        if !checkIfExists(model: "Category", field: "name", fieldValue: name) {
-                            let category = NSManagedObject(entity: categoryEntity!, insertInto: viewContext)
-                            category.setValue(name, forKey: "name")
-                            category.setValue(image, forKey: "image")
-                        }
-                    }
-                    try viewContext.save()
-                    dispatchGroup.leave()
-                }
-            } catch {
-                dispatchGroup.leave()
-                return
-            }
-        })
-        dispatchGroup.enter()
-        task.resume()
-        dispatchGroup.wait()
+        if !checkIfExists(model: "Category", field: "name", fieldValue: name) {
+            let category = NSManagedObject(entity: categoryEntity!, insertInto: viewContext)
+            category.setValue(name, forKey: "name")
+            category.setValue(image, forKey: "image")
+        }
     }
 
-    func loadProducts() {
+    func saveProductToCoreData(_ jsonData: Dictionary<String, AnyObject>) {
         let viewContext = persistenceController.container.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        do {
-            let categories = try viewContext.fetch(fetchRequest) as? [NSManagedObject]
-            let serverURL = API + "/products"
+        let productEntity = NSEntityDescription.entity(forEntityName: "Product", in: viewContext)
 
-            let url = URL(string: serverURL)
-            let request = URLRequest(url: url!)
+        let name = jsonData["name"] as! String
+        let price = Int16(jsonData["price"] as! Int)
+        let image = API + "/images/" +  (jsonData["image"] as! String) + ".png"
+        let info = jsonData["info"] as! String
+        let available = jsonData["available"] as! Bool
+
+        do {
+            let categoryName = jsonData["category"] as! String
+            let categoryFetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Category")
+            categoryFetchRequest.predicate = NSPredicate(format: "name == %@", categoryName)
+            let fetchedCategory = try viewContext.fetch(categoryFetchRequest)
+
+            if let category = fetchedCategory.first {
+                if !checkIfExists(model: "Product", field: "name", fieldValue: name) {
+                    let product = NSManagedObject(entity: productEntity!, insertInto: viewContext)
+                    product.setValue(name, forKey: "name")
+                    product.setValue(price, forKey: "price")
+                    product.setValue(image, forKey: "image")
+                    product.setValue(info, forKey: "info")
+                    product.setValue(available, forKey: "available")
+                    product.setValue(category, forKey: "category")
+                }
+            }
+        } catch {
+            print("Error while fetching Category from Core Data")
+        }
+    }
+
+    func loadData(endpoint: String, saveFunction: @escaping (Dictionary<String, AnyObject>) -> Void) {
+        let viewContext = persistenceController.container.viewContext
+
+        if let url = URL(string: API + endpoint) {
+            let request = URLRequest(url: url)
             let session = URLSession(configuration: .default)
 
-            let productEntity = NSEntityDescription.entity(forEntityName: "Product", in: viewContext)
             let dispatchGroup = DispatchGroup()
-
-            let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
+            let task = session.dataTask(with: request, completionHandler: { data, response, error in
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: [])
-                    if let object = json as? [Any] {
-                        for item in object as! [Dictionary<String, AnyObject>] {
-                            let name = item["name"] as! String
-                            let price = Int16(item["price"] as! Int)
-                            let image = API + "/images/" +  (item["image"] as! String) + ".png"
-                            let info = item["info"] as! String
-                            let available = item["available"] as! Bool
-                            let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: viewContext)
-                            let categoryName = item["category"] as! String
-
-                            let categoryFetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Category")
-                            categoryFetchRequest.predicate = NSPredicate(format: "name == %@", categoryName)
-                            let fetchedCategory = try
-                            viewContext.fetch(categoryFetchRequest)
-                            let category: NSManagedObject
-
-                            if let existingCategory = fetchedCategory.first {
-                                if !checkIfExists(model: "Product", field: "name", fieldValue: name) {
-                                    let product = NSManagedObject(entity: productEntity!, insertInto: viewContext)
-                                    product.setValue(name, forKey: "name")
-                                    product.setValue(price, forKey: "price")
-                                    product.setValue(image, forKey: "image")
-                                    product.setValue(info, forKey: "info")
-                                    product.setValue(available, forKey: "available")
-                                    product.setValue(existingCategory, forKey: "category")
-                                }
-                            }
+                    let data = try JSONSerialization.jsonObject(with: data!, options: [])
+                    if let dataObject = data as? [Dictionary<String, AnyObject>] {
+                        for dataItem in dataObject {
+                            saveFunction(dataItem)
                         }
+
                         try viewContext.save()
                         dispatchGroup.leave()
                     }
@@ -126,28 +101,25 @@ extension Online_StoreApp {
                     return
                 }
             })
+
             dispatchGroup.enter()
             task.resume()
             dispatchGroup.wait()
-        } catch {
-            print("Error")
         }
     }
 
     func checkIfExists(model: String, field: String, fieldValue: String) -> Bool {
-        let context = persistenceController.container.viewContext
+        let viewContext = persistenceController.container.viewContext
 
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: model)
         fetchRequest.predicate = NSPredicate(format: "\(field) = %@", fieldValue)
 
         do {
-            let fetchResults = try context.fetch(fetchRequest) as? [NSManagedObject]
-            if fetchResults!.count > 0 {
-                return true
-            }
+            let fetchResults = try viewContext.fetch(fetchRequest) as? [NSManagedObject]
+            if fetchResults!.count > 0 { return true }
             return false
         } catch {
-            print("Nie bangla2")
+            print("Error while checking data")
         }
         return false
     }
