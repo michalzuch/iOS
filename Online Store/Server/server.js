@@ -71,7 +71,7 @@ const productsData = [{
     available: true,
     category: 'Office'
 }, {
-    name: 'Pencils x10',
+    name: 'Pencils (10-pack)',
     price: 10,
     image: 'Pencil',
     info: 'Pencils are essential writing tools that come in a set of 10, providing you with a reliable and versatile option for various writing and drawing needs. With their graphite cores, these pencils offer smooth and consistent lines. The wooden barrels provide a comfortable grip, ensuring a pleasant writing experience. The set of 10 pencils allows you to have an ample supply for personal or professional use. Whether you\'re sketching, drafting, or simply jotting down notes, these pencils offer durability and versatility in a convenient package. Keep a set of pencils on hand for all your writing and artistic endeavors.',
@@ -121,12 +121,34 @@ const productsData = [{
     category: 'Books'
 }];
 
+const ordersData = [{
+    number: 'N123456789', paid: true, date: new Date(2023, 11, 19).toISOString(), totalCost: 1248, products: {
+        'iPhone 15 Pro': 1, 'AirPods Pro': 1
+    }
+}, {
+    number: 'N987654321', paid: false, date: new Date(2024, 0, 3).toISOString(), totalCost: 7996, products: {
+        'MacBook Pro 14': 4
+    }
+}, {
+    number: 'N654321987', paid: true, date: new Date(2024, 0, 22).toISOString(), totalCost: 2580, products: {
+        'Go-kart': 1, 'Scuderia Ferrari Polo Shirt': 1
+    }
+}, {
+    number: 'N321654987', paid: true, date: new Date(2024, 0, 26).toISOString(), totalCost: 540, products: {
+        'Pencils x10': 10, 'Notebook': 10, 'Pen': 10
+    }
+}]
+
 app.get('/categories', (req, res) => {
     res.json(categoriesData);
 });
 
 app.get('/products', (req, res) => {
     res.json(productsData);
+});
+
+app.get('/orders', (req, res) => {
+    res.json(ordersData);
 });
 
 app.get('/images/:image', (req, res) => {
