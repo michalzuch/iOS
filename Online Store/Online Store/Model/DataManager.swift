@@ -13,13 +13,15 @@ extension Online_StoreApp {
         let viewContext = persistenceController.container.viewContext
         let categoryFetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let productFetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
+        let orderFetchRequest: NSFetchRequest<Order> = Order.fetchRequest()
 
         do {
             let categories = try viewContext.fetch(categoryFetchRequest)
             let products = try viewContext.fetch(productFetchRequest)
-            return !categories.isEmpty && !products.isEmpty
+            let orders = try viewContext.fetch(orderFetchRequest)
+            return !categories.isEmpty && !products.isEmpty && !orders.isEmpty
         } catch {
-            print("Error checking data: \(error.localizedDescription)")
+            print(error)
         }
         return false
     }
@@ -28,6 +30,7 @@ extension Online_StoreApp {
         if !isDataLoaded() {
             loadData(endpoint: "/categories", saveFunction: saveCategoryToCoreData(_:))
             loadData(endpoint: "/products", saveFunction: saveProductToCoreData(_:))
+            loadData(endpoint: "/orders", saveFunction: saveOrderToCoreData(_:))
         }
     }
 
@@ -77,6 +80,42 @@ extension Online_StoreApp {
         }
     }
 
+    func saveOrderToCoreData(_ jsonData: Dictionary<String, AnyObject>) {
+        let viewContext = persistenceController.container.viewContext
+        let orderEntity = NSEntityDescription.entity(forEntityName: "Order", in: viewContext)
+
+        let number = jsonData["number"] as! String
+        let paid = jsonData["paid"] as! Bool
+        let date = extractDate(from: jsonData["date"] as! String)
+        let totalCost = Int16(jsonData["totalCost"] as! Int)
+
+        var products = [String: Int]()
+        for productData in jsonData["products"] as! Dictionary<String, Int> {
+            products[productData.key] = productData.value
+        }
+
+        if !checkIfExists(model: "Order", field: "number", fieldValue: number) {
+            let order = NSManagedObject(entity: orderEntity!, insertInto: viewContext)
+            order.setValue(number, forKey: "number")
+            order.setValue(paid, forKey: "paid")
+            order.setValue(date, forKey: "date")
+            order.setValue(totalCost, forKey: "totalCost")
+            order.setValue(products, forKey: "products")
+
+            do {
+                let productsFetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Product")
+                productsFetchRequest.predicate = NSPredicate(format: "name in %@", products)
+                let fetchedProducts = try viewContext.fetch(productsFetchRequest)
+
+                for product in fetchedProducts {
+                    order.mutableSetValue(forKey: "productsReference").add(product)
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+
     func loadData(endpoint: String, saveFunction: @escaping (Dictionary<String, AnyObject>) -> Void) {
         let viewContext = persistenceController.container.viewContext
 
@@ -119,8 +158,15 @@ extension Online_StoreApp {
             if fetchResults!.count > 0 { return true }
             return false
         } catch {
-            print("Error while checking data")
+            print(error)
         }
         return false
+    }
+
+    func extractDate(from dateString: String) -> Date? {
+        let shortDate = String(dateString.prefix(10))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: shortDate)
     }
 }
