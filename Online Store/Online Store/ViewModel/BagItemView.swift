@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct BagItemView: View {
     let product: Product
@@ -13,7 +14,7 @@ struct BagItemView: View {
 
     var body: some View {
         HStack {
-            Image(product.image!)
+            WebImage(url: URL(string: product.image!))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: UIScreen.main.bounds.width * 0.2)
