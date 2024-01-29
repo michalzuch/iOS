@@ -24,6 +24,7 @@
 		946A94BA2B61C1620024E440 /* OrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946A94B92B61C1620024E440 /* OrdersView.swift */; };
 		946A94BC2B629EFB0024E440 /* OrderItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946A94BB2B629EFA0024E440 /* OrderItemView.swift */; };
 		948164C02B40AFEF00250EEB /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948164BF2B40AFEF00250EEB /* ProductView.swift */; };
+		94D11ED42B67234D0053EA3D /* AddProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D11ED32B67234D0053EA3D /* AddProductView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		946A94B92B61C1620024E440 /* OrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersView.swift; sourceTree = "<group>"; };
 		946A94BB2B629EFA0024E440 /* OrderItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemView.swift; sourceTree = "<group>"; };
 		948164BF2B40AFEF00250EEB /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		94D11ED32B67234D0053EA3D /* AddProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 		9414BD012B593F710063F72F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				94D11ED32B67234D0053EA3D /* AddProductView.swift */,
 				9414BD062B59420B0063F72F /* BagItemView.swift */,
 				9414BD082B5943A80063F72F /* BagView.swift */,
 				940E16F62B40309300D30ACD /* ContentView.swift */,
@@ -206,6 +209,7 @@
 				9414BD052B5941330063F72F /* DataManager.swift in Sources */,
 				940E17012B40309500D30ACD /* Online_Store.xcdatamodeld in Sources */,
 				946A94BA2B61C1620024E440 /* OrdersView.swift in Sources */,
+				94D11ED42B67234D0053EA3D /* AddProductView.swift in Sources */,
 				9414BD032B593F880063F72F /* Bag.swift in Sources */,
 				940E16F52B40309300D30ACD /* Online_StoreApp.swift in Sources */,
 				9414BD112B59633D0063F72F /* StoreView.swift in Sources */,

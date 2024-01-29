@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 const categoriesData = [{
     name: 'Electronics', image: '🖥'
@@ -157,11 +160,17 @@ app.get('/images/:image', (req, res) => {
 
     if (fs.existsSync(imagePath)) {
         const imageStream = fs.createReadStream(imagePath);
-        res.setHeader('Content-Type', 'image/png'); // Adjust the content type according to your image format
+        res.setHeader('Content-Type', 'image/png');
         imageStream.pipe(res);
     } else {
         res.sendStatus(404);
     }
+});
+
+app.post('/products', (req, res) => {
+    const product = req.body;
+    productsData.push(product);
+    res.json(product);
 });
 
 

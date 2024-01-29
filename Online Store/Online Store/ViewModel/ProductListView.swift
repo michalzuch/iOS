@@ -11,7 +11,8 @@ struct ProductsListView: View {
     let category: Category
     let products: FetchedResults<Product>
     @ObservedObject var bag: Bag
-
+    @State private var isNewProductViewClicked = false
+    
     var body: some View {
         NavigationLink {
             List {
@@ -26,10 +27,22 @@ struct ProductsListView: View {
                 }
             }
             .navigationTitle(category.name!)
+            .toolbar {
+                ToolbarItem {
+                    Button(action: {
+                        isNewProductViewClicked.toggle()
+                    }) {
+                        Label("Add Product", systemImage: "plus")
+                    }
+                }
+            }
         } label: {
             Text(category.image!)
             Divider()
             Text(category.name!)
         }
+        .sheet(isPresented: $isNewProductViewClicked, content: {
+            AddProductView(isNewProductViewClicked: $isNewProductViewClicked, category: category)
+        })
     }
 }
