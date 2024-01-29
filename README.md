@@ -33,3 +33,12 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 ✅ 5.0 Add option to ad more than one instance of the same product to bag
 
 ---
+
+## [Online Store](https://github.com/michalzuch/iOS/tree/main/Online%20Store/Online%20Store)
+<img src="assets/Online Store.png" width=50%/>
+
+✅ 3.0 Fetch products and categories from server application  
+✅ 3.5 Save data locally to Core Data  
+✅ 4.0 Fetch orders from server application (min 5 fields, including one relation)  
+✅ 4.5 Display products and categories on two separate lists  
+✅ 5.0 Add products from the mobile application
