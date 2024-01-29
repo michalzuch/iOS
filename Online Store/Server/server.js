@@ -170,7 +170,7 @@ app.get('/images/:image', (req, res) => {
 app.post('/products', (req, res) => {
     const product = req.body;
     productsData.push(product);
-    res.json(product);
+    res.sendStatus(200);
 });
 
 

@@ -11,8 +11,10 @@ struct ProductsListView: View {
     let category: Category
     let products: FetchedResults<Product>
     @ObservedObject var bag: Bag
-    @State private var isNewProductViewClicked = false
-    
+    @State var isNewProductViewClicked = false
+    @State var showUploadAlert = false
+    @State var uploadAlertMessage = ""
+
     var body: some View {
         NavigationLink {
             List {
@@ -42,7 +44,10 @@ struct ProductsListView: View {
             Text(category.name!)
         }
         .sheet(isPresented: $isNewProductViewClicked, content: {
-            AddProductView(isNewProductViewClicked: $isNewProductViewClicked, category: category)
+            AddProductView(isNewProductViewClicked: $isNewProductViewClicked, category: category, showUploadAlert: $showUploadAlert, uploadAlertMessage: $uploadAlertMessage)
         })
+        .alert(isPresented: $showUploadAlert) {
+            Alert(title: Text("Product Upload"), message: Text(uploadAlertMessage), dismissButton: .default(Text("OK")))
+        }
     }
 }

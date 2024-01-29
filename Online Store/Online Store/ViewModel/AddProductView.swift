@@ -16,21 +16,33 @@ struct AddProductView: View {
     
     @Binding var isNewProductViewClicked: Bool
     let category: Category
-
+    
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
+    @Binding var showUploadAlert: Bool
+    @Binding var uploadAlertMessage: String
+    
     var body: some View {
         NavigationView {
             Form {
                 TextField("Name", text: $newProductName)
                 TextField("Price", text: $newProductPrice)
                 TextField("Description", text: $newProductInfo)
-
+                
                 Button("Save") {
-                    addProductToServer()
-                    isNewProductViewClicked.toggle()
-
-                    newProductName = ""
-                    newProductPrice = ""
-                    newProductInfo = ""
+                    if newProductName.isEmpty {
+                        showAlert(message: "Name cannot be empty")
+                    } else if let price = Int(newProductPrice), price > 0 {
+                        addProductToServer()
+                        isNewProductViewClicked.toggle()
+                        
+                        newProductName = ""
+                        newProductPrice = ""
+                        newProductInfo = ""
+                    } else {
+                        showAlert(message: "Price must be a positive integer")
+                    }
                 }
             }
             .navigationTitle("Add Product")
@@ -42,6 +54,19 @@ struct AddProductView: View {
                 }
             }
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+    }
+    
+    func showAlert(message: String) {
+        alertMessage = message
+        showAlert = true
+    }
+
+    func showUploadAlert(message: String) {
+        uploadAlertMessage = message
+        showUploadAlert = true
     }
 
     func addProductToServer() {
@@ -51,7 +76,7 @@ struct AddProductView: View {
                 print("Price is not a number")
                 return
             }
-
+            
             let newProduct: [String: Any] = [
                 "name": newProductName,
                 "price": price,
@@ -60,26 +85,36 @@ struct AddProductView: View {
                 "available": true,
                 "category": category.name!
             ]
-
+            
             guard let jsonData = try? JSONSerialization.data(withJSONObject: newProduct) else {
                 print("Failed to serialize the data")
                 return
             }
-
+            
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.httpBody = jsonData
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+            
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: request, completionHandler: { data, response, error in
                 if let error = error {
                     print(error)
                     return
                 }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        showUploadAlert(message: "Data uploaded successfully")
+                    } else {
+                        showUploadAlert(message: "Failed to upload data")
+                    }
+                } else {
+                    showUploadAlert(message: "Failed to upload data")
+                }
             })
             task.resume()
-
+            
             let productEntity = NSEntityDescription.entity(forEntityName: "Product", in: viewContext)
             let product = NSManagedObject(entity: productEntity!, insertInto: viewContext)
             product.setValue(newProduct["name"], forKey: "name")
@@ -88,7 +123,7 @@ struct AddProductView: View {
             product.setValue(newProduct["info"], forKey: "info")
             product.setValue(newProduct["available"], forKey: "available")
             product.setValue(category, forKey: "category")
-
+            
             do {
                 try viewContext.save()
             } catch {
@@ -97,4 +132,5 @@ struct AddProductView: View {
             }
         }
     }
+    
 }
