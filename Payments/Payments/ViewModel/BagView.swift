@@ -10,6 +10,9 @@ import SwiftUI
 struct BagView: View {
     let products: FetchedResults<Product>
     @ObservedObject var bag: Bag
+    @State var isPaymentFormPresented = false
+    @State var showAlert = false
+    @State var alertMessage = ""
 
     var filteredProducts: [Product] {
         products.filter { product in
@@ -19,19 +22,51 @@ struct BagView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(filteredProducts) { product in
-                    BagItemView(product: product, bag: bag)
-                        .swipeActions(edge: .trailing) {
-                            Button(role: .destructive) {
-                                bag.removeItem(product: product)
-                            } label: {
-                                Label("Delete", systemImage: "trash")
+            VStack {
+                List {
+                    ForEach(filteredProducts) { product in
+                        BagItemView(product: product, bag: bag)
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    bag.removeItem(product: product)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
                             }
-                        }
+                    }
                 }
+                .navigationTitle("Bag")
+
+                MakeOrderButton(bag: bag, isPaymentFormPresented: $isPaymentFormPresented)
+                    .sheet(isPresented: $isPaymentFormPresented, content: {
+                        PaymentFormView(isPresented: $isPaymentFormPresented, products: filteredProducts, bag: bag, showAlert: $showAlert, alertMessage: $alertMessage)
+                    })
             }
-            .navigationTitle("Bag")
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Payment Status"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+    }
+}
+
+struct MakeOrderButton: View {
+    @ObservedObject var bag: Bag
+    @Binding var isPaymentFormPresented: Bool
+
+    var body: some View {
+        Button(action: {
+            self.isPaymentFormPresented.toggle()
+        }, label: {
+            Spacer()
+            Text("Buy")
+                .bold()
+                .foregroundStyle(.white)
+                .padding()
+            Spacer()
+        })
+        .disabled(bag.items.isEmpty)
+        .background(!bag.items.isEmpty ? .blue : .gray)
+        .cornerRadius(24)
+        .padding(.all)
     }
 }

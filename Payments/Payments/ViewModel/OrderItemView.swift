@@ -57,15 +57,15 @@ struct OrderedProducts: View {
     var body: some View {
         let productsDictionary = order.products as! [String: Int]
         let keyValueArray = productsDictionary.map { ($0.key, $0.value) }.sorted { $0.0 < $1.0 }
-        ForEach(keyValueArray, id: \.0) {produc in
+        ForEach(keyValueArray, id: \.0) {item in
             Divider()
-            if let product = products.first(where: { $0.name == produc.0 }) {
+            if let product = products.first(where: { $0.name == item.0 }) {
                 HStack {
                     WebImage(url: URL(string: product.image!))
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: UIScreen.main.bounds.width * 0.2)
-                    Text("\(product.name!) x\(produc.1)")
+                    Text("\(product.name!) x\(item.1)")
                 }
             }
         }

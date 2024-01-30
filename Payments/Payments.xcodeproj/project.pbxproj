@@ -24,6 +24,8 @@
 		944153C42B67D585006C9408 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944153C32B67D585006C9408 /* ProductListView.swift */; };
 		944153C62B67D595006C9408 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944153C52B67D595006C9408 /* ProductView.swift */; };
 		944153C82B67D5A5006C9408 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944153C72B67D5A5006C9408 /* StoreView.swift */; };
+		944153CA2B68579C006C9408 /* PaymentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944153C92B68579C006C9408 /* PaymentFormView.swift */; };
+		944153CC2B68ECFE006C9408 /* PaymentConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944153CB2B68ECFE006C9408 /* PaymentConfirmationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		944153C32B67D585006C9408 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		944153C52B67D595006C9408 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		944153C72B67D5A5006C9408 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+		944153C92B68579C006C9408 /* PaymentFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentFormView.swift; sourceTree = "<group>"; };
+		944153CB2B68ECFE006C9408 /* PaymentConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentConfirmationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,8 @@
 				9441539D2B67C153006C9408 /* ContentView.swift */,
 				944153BD2B67D549006C9408 /* OrderItemView.swift */,
 				944153BF2B67D55E006C9408 /* OrdersView.swift */,
+				944153CB2B68ECFE006C9408 /* PaymentConfirmationView.swift */,
+				944153C92B68579C006C9408 /* PaymentFormView.swift */,
 				944153C12B67D574006C9408 /* ProductListItem.swift */,
 				944153C32B67D585006C9408 /* ProductListView.swift */,
 				944153C52B67D595006C9408 /* ProductView.swift */,
@@ -198,8 +204,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				944153C02B67D55E006C9408 /* OrdersView.swift in Sources */,
+				944153CC2B68ECFE006C9408 /* PaymentConfirmationView.swift in Sources */,
 				944153B72B67D4E7006C9408 /* BagItemView.swift in Sources */,
 				944153B12B67D1D4006C9408 /* Bag.swift in Sources */,
+				944153CA2B68579C006C9408 /* PaymentFormView.swift in Sources */,
 				944153BE2B67D549006C9408 /* OrderItemView.swift in Sources */,
 				944153C62B67D595006C9408 /* ProductView.swift in Sources */,
 				944153B32B67D1EA006C9408 /* DataManager.swift in Sources */,
