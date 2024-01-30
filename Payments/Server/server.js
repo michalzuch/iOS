@@ -173,6 +173,9 @@ app.post('/products', (req, res) => {
     res.sendStatus(200);
 });
 
+app.post('/card_payment', (req, res) => {
+    res.sendStatus(200);
+})
 
 app.listen(3000, () => {
     console.log('Server is listening on http://localhost:3000');
