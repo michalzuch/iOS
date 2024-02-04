@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		946DC9C32B6FF1C7008F6FAA /* InputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946DC9C22B6FF1C6008F6FAA /* InputFieldView.swift */; };
 		94D798DD2B46472800F85C45 /* OAuthApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D798DC2B46472800F85C45 /* OAuthApp.swift */; };
 		94D798DF2B46472800F85C45 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D798DE2B46472800F85C45 /* ContentView.swift */; };
 		94D798E12B46472A00F85C45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94D798E02B46472A00F85C45 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		946DC9C22B6FF1C6008F6FAA /* InputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldView.swift; sourceTree = "<group>"; };
 		94D798D92B46472800F85C45 /* OAuth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OAuth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D798DC2B46472800F85C45 /* OAuthApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthApp.swift; sourceTree = "<group>"; };
 		94D798DE2B46472800F85C45 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				94D798DE2B46472800F85C45 /* ContentView.swift */,
 				94D798ED2B4647AD00F85C45 /* LoggedInView.swift */,
 				94D798EF2B4649E400F85C45 /* LoggedOutView.swift */,
+				946DC9C22B6FF1C6008F6FAA /* InputFieldView.swift */,
 				94D798F62B4843F700F85C45 /* UserAuthentication.swift */,
 				94D798E02B46472A00F85C45 /* Assets.xcassets */,
 				94D798E22B46472A00F85C45 /* Preview Content */,
@@ -152,6 +155,7 @@
 			files = (
 				94D798F72B4843F700F85C45 /* UserAuthentication.swift in Sources */,
 				94D798DF2B46472800F85C45 /* ContentView.swift in Sources */,
+				946DC9C32B6FF1C7008F6FAA /* InputFieldView.swift in Sources */,
 				94D798EE2B4647AD00F85C45 /* LoggedInView.swift in Sources */,
 				94D798DD2B46472800F85C45 /* OAuthApp.swift in Sources */,
 				94D798F02B4649E400F85C45 /* LoggedOutView.swift in Sources */,

@@ -14,12 +14,10 @@ struct LoggedOutView: View {
     
     var body: some View {
         NavigationStack {
-            TextField("e-mail address", text: $username)
-                .textFieldStyle(.roundedBorder)
-                .padding()
-            SecureField("password", text: $password)
-                .textFieldStyle(.roundedBorder)
-                .padding()
+            Spacer()
+            TextFieldView("Email", text: $username)
+            SecureFieldView("password", text: $password)
+            Spacer()
             Button(action: {
                 userAuthentication.logIn(username: username, password: password)
                 username = ""
@@ -34,6 +32,7 @@ struct LoggedOutView: View {
             .background(.blue)
             .cornerRadius(50)
         }
+        .padding(.bottom, 50)
     }
 }
 
