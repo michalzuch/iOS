@@ -4,24 +4,42 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const users = { Test: { email: undefined, password: 'test', name: undefined } };
+const users = {};
+
+const userData = {
+    email: 'test@test.com', password: 'test', name: 'Name Surname', oauth: {
+        google: {
+            accessToken: undefined, refreshToken: undefined
+        }, github: {
+            accessToken: undefined, refreshToken: undefined
+        }
+    }
+};
+
+users['unique_username'] = userData
 
 app.post('/signup', (req, res) => {
-    const { email, password, name, username } = req.body;
+    const {email, password, name, username} = req.body;
+
     if (users[username]) {
-        return res.status(400).json({ message: 'User already exists' });
+        return res.status(400).json({message: 'User already exists'});
     }
-    users[username] = { 'email': email, 'password': password, 'name': name};
-    console.log(users)
-    res.status(200).json({ message: 'User signed up successfully' });
+
+    users[username] = {
+        email: email, password: password, name: name, oauth: {}
+    };
+
+    res.status(200).json({message: 'User signed up successfully'});
 });
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const {username, password} = req.body;
+
     if (!users[username] || users[username].password !== password) {
-        return res.status(400).json({ message: 'Invalid username or password' });
+        return res.status(400).json({message: 'Invalid username or password'});
     }
-    res.status(200).json({ message: 'User logged in successfully' });
+
+    res.status(200).json({message: 'User logged in successfully'});
 });
 
 app.listen(3000, () => {

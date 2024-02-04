@@ -12,9 +12,9 @@ struct ContentView: View {
     
     var body: some View {
         if userAuthentication.isLoggedIn {
-            LoggedInView()
+            AuthorizedView()
         } else {
-            LoggedOutView()
+            UnauthorizedView()
         }
     }
 }

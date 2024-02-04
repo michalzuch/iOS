@@ -59,6 +59,7 @@ private struct InputFieldView: View {
                             .stroke(.gray, lineWidth: 1)
                     )
             }
+
             HStack {
                 Text(title)
                     .font(.headline)
