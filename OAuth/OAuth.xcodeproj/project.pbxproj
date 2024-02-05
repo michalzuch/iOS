@@ -46,6 +46,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		943A3EAF2B714887008A691A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				94D798F62B4843F700F85C45 /* UserAuthentication.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		943A3EB02B71488F008A691A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				94D798ED2B4647AD00F85C45 /* AuthorizedView.swift */,
+				94D798DE2B46472800F85C45 /* ContentView.swift */,
+				946DC9C82B7014B1008F6FAA /* LogInView.swift */,
+				946DC9CA2B7014D5008F6FAA /* SignUpView.swift */,
+				94D798EF2B4649E400F85C45 /* UnauthorizedView.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		943A3EB12B7148B6008A691A /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				946DC9CC2B702320008F6FAA /* HUDNotification.swift */,
+				946DC9C22B6FF1C6008F6FAA /* InputFieldView.swift */,
+			);
+			path = "UI Components";
+			sourceTree = "<group>";
+		};
 		94D798D02B46472800F85C45 = {
 			isa = PBXGroup;
 			children = (
@@ -66,14 +95,9 @@
 			isa = PBXGroup;
 			children = (
 				94D798DC2B46472800F85C45 /* OAuthApp.swift */,
-				94D798DE2B46472800F85C45 /* ContentView.swift */,
-				94D798ED2B4647AD00F85C45 /* AuthorizedView.swift */,
-				94D798EF2B4649E400F85C45 /* UnauthorizedView.swift */,
-				946DC9C82B7014B1008F6FAA /* LogInView.swift */,
-				946DC9CA2B7014D5008F6FAA /* SignUpView.swift */,
-				946DC9CC2B702320008F6FAA /* HUDNotification.swift */,
-				946DC9C22B6FF1C6008F6FAA /* InputFieldView.swift */,
-				94D798F62B4843F700F85C45 /* UserAuthentication.swift */,
+				943A3EAF2B714887008A691A /* Model */,
+				943A3EB02B71488F008A691A /* ViewModel */,
+				943A3EB12B7148B6008A691A /* UI Components */,
 				94D798E02B46472A00F85C45 /* Assets.xcassets */,
 				94D798E22B46472A00F85C45 /* Preview Content */,
 			);
