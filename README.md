@@ -3,6 +3,8 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 
 > Although these projects were created as part of my classes, I have dedicated extra effort to make them well-designed and carefully crafted. While they are relatively simple, they have been developed with care and attention to detail.
 
+![All Apps](./assets/All%20Apps.png)
+
 ## [Calculator](https://github.com/michalzuch/iOS/tree/main/Calculator/Calculator)
 <img src="assets/Calculator.png" width=50%/>
 
