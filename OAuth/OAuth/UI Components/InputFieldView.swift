@@ -10,12 +10,12 @@ import SwiftUI
 struct TextFieldView: View {
     let title: String
     @Binding var text: String
-
+    
     init(_ title: String, text: Binding<String>) {
         self.title = title
         _text = text
     }
-
+    
     var body: some View {
         InputFieldView(title: title, text: $text, isViewSecure: false)
     }
@@ -24,12 +24,12 @@ struct TextFieldView: View {
 struct SecureFieldView: View {
     let title: String
     @Binding var text: String
-
+    
     init(_ title: String, text: Binding<String>) {
         self.title = title
         _text = text
     }
-
+    
     var body: some View {
         InputFieldView(title: title, text: $text, isViewSecure: true)
     }
@@ -39,7 +39,7 @@ private struct InputFieldView: View {
     let title: String
     @Binding var text: String
     let isViewSecure: Bool
-
+    
     var body: some View {
         ZStack {
             if isViewSecure {
@@ -59,7 +59,7 @@ private struct InputFieldView: View {
                             .stroke(.gray, lineWidth: 1)
                     )
             }
-
+            
             HStack {
                 Text(title)
                     .font(.headline)

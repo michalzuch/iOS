@@ -13,28 +13,28 @@ struct SignUpView: View {
     @State private var username = ""
     @State private var password = ""
     @EnvironmentObject var userAuthentication: UserAuthentication
-
+    
     var body: some View {
         NavigationStack {
             VStack{
                 Spacer()
-
+                
                 TextFieldView("Email", text: $email)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-
+                
                 TextFieldView("Full Name", text: $name)
-
+                
                 TextFieldView("Username", text: $username)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-
+                
                 SecureFieldView("Password", text: $password)
-
+                
                 Spacer()
                 Spacer()
-
+                
                 NavigationLink(destination: LogInView()) {
                     Button(action: {
                         userAuthentication.signUp(email: email, name: name, username: username, password: password)

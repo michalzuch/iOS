@@ -7,39 +7,49 @@ app.use(bodyParser.json());
 const users = {};
 
 const userData = {
-    email: 'test@test.com', password: 'test', name: 'Name Surname', oauth: {
-        google: {
-            accessToken: undefined, refreshToken: undefined
-        }, github: {
-            accessToken: undefined, refreshToken: undefined
-        }
-    }
+    username: 'test', password: 'test', name: 'Name Surname', google: undefined, github: undefined
 };
 
-users['unique_username'] = userData
+users['test@test.com'] = userData
 
 app.post('/signup', (req, res) => {
     const {email, password, name, username} = req.body;
 
-    if (users[username]) {
+    if (users[email]) {
         return res.status(400).json({message: 'User already exists'});
     }
 
-    users[username] = {
-        email: email, password: password, name: name, oauth: {}
+    users[email] = {
+        username: username, password: password, name: name, google: undefined, github: undefined
     };
 
     res.status(200).json({message: 'User signed up successfully'});
 });
 
 app.post('/login', (req, res) => {
-    const {username, password} = req.body;
+    const {email, password} = req.body;
 
-    if (!users[username] || users[username].password !== password) {
+    if (!users[email] || users[email].password !== password) {
         return res.status(400).json({message: 'Invalid username or password'});
     }
 
     res.status(200).json({message: 'User logged in successfully'});
+});
+
+app.post('/google', (req, res) => {
+    const {email, name, token} = req.body;
+    let username = email.split('@')[0]
+
+    if (email in users && users[email].google !== undefined) {
+        res.status(200).json({message: 'User logged in successfully'});
+        return
+    }
+
+    users[email] = {
+        username: username, password: undefined, name: name, google: token, github: undefined
+    };
+
+    res.status(200).json({message: 'User signed up successfully'});
 });
 
 app.listen(3000, () => {

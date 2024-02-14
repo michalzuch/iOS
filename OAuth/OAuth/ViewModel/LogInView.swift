@@ -8,29 +8,29 @@
 import SwiftUI
 
 struct LogInView: View {
-    @State private var username = ""
+    @State private var email = ""
     @State private var password = ""
     @EnvironmentObject var userAuthentication: UserAuthentication
-    
+
     var body: some View {
         NavigationStack {
             VStack{
                 Spacer()
-                
-                TextFieldView("Email", text: $username)
+
+                TextFieldView("Email", text: $email)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                
+
                 SecureFieldView("Password", text: $password)
-                
+
                 Spacer()
                 Spacer()
                 Spacer()
-                
+
                 Button(action: {
-                    userAuthentication.logIn(username: username, password: password)
-                    username = ""
+                    userAuthentication.logIn(email: email, password: password)
+                    email = ""
                     password = ""
                 }, label: {
                     Text("Log In")
@@ -63,4 +63,5 @@ struct LogInView: View {
 
 #Preview {
     LogInView()
+        .environmentObject(UserAuthentication())
 }

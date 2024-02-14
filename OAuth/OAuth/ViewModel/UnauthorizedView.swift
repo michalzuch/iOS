@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleSignInSwift
 
 struct UnauthorizedView: View {
     @EnvironmentObject var userAuthentication: UserAuthentication
@@ -19,6 +20,16 @@ struct UnauthorizedView: View {
             NavigationLink(destination: SignUpView()) {
                 BlueButton(title: "Sign Up")
             }
+            
+            GoogleSignInButton(action: userAuthentication.googleSignInButton)
+                .frame(width: UIScreen.main.bounds.width / 1.5, height: 40)
+                .cornerRadius(50)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 50)
+                        .stroke(.gray, lineWidth: 2)
+                        .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
+                )
+                .padding(.all, 8)
         }
     }
 }
@@ -41,4 +52,5 @@ private struct BlueButton: View {
 
 #Preview {
     UnauthorizedView()
+        .environmentObject(UserAuthentication())
 }

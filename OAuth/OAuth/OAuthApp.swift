@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import GoogleSignIn
 
 @main
 struct OAuthApp: App {
@@ -16,6 +17,9 @@ struct OAuthApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(userAuthentication)
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url)
+                }
         }
     }
 }
