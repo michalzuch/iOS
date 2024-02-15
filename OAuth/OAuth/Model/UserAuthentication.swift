@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import GoogleSignIn
+import OAuth2
 
 class UserAuthentication: ObservableObject {
     let serverURL = "http://127.0.0.1:3000"
@@ -16,6 +17,17 @@ class UserAuthentication: ObservableObject {
     @Published var serverResponseText: String = ""
     @Published var serverResponseImage: String = ""
     @Published var successfulSignUp: Bool = false
+    
+    let oauth2 = OAuth2CodeGrant(settings: [
+        "client_id": "ffd892e499bc45dbf409",
+        "client_secret": "f852bd06585d4710a3798a2b0b68846ca81663f8",
+        "authorize_uri": "https://github.com/login/oauth/authorize",
+        "token_uri": "https://github.com/login/oauth/access_token",
+        "redirect_uris": ["com.michalzuch.oauth://github"],
+        "scope": "user",
+        "secret_in_body": true,
+        "keychain": false,
+    ])
     
     func logIn(email: String, password: String) {
         if let url = URL(string: "\(serverURL)/login") {
@@ -119,6 +131,21 @@ class UserAuthentication: ObservableObject {
                 self.sendOAuthUserData(email: signInResult.user.profile!.email, name: signInResult.user.profile!.name, token: signInResult.user.accessToken.tokenString, oauth: "google")
                 self.isLoggedIn = true
             }
+    }
+    
+    func githubSignInButton() {
+        oauth2.authorize { authParameters, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            if let accessToken = authParameters?["access_token"] as? String {
+                self.sendOAuthUserData(email: "", name: "", token: accessToken, oauth: "github")
+            }
+            
+            self.isLoggedIn = true
+        }
     }
     
     func sendOAuthUserData(email: String, name: String, token: String, oauth: String) {

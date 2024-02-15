@@ -10,6 +10,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.96595227358-58f7tfjccc9s03nfml02ppk1rttluti0</string>
+				<string>com.michalzuch.oauth</string>
 			</array>
 		</dict>
 	</array>

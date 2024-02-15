@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GoogleSignInSwift
+import OAuth2
 
 struct UnauthorizedView: View {
     @EnvironmentObject var userAuthentication: UserAuthentication
@@ -30,6 +31,8 @@ struct UnauthorizedView: View {
                         .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
                 )
                 .padding(.all, 8)
+            
+            GitHubSignInButton(userAuthentication: _userAuthentication)
         }
     }
 }
@@ -48,6 +51,23 @@ private struct BlueButton: View {
     }
 }
 
+private struct GitHubSignInButton: View {
+    @EnvironmentObject var userAuthentication: UserAuthentication
+    
+    var body: some View {
+        Button(action: userAuthentication.githubSignInButton, label: {
+            Image("github-mark-white")
+                .resizable()
+                .frame(width: 25, height: 25)
+            Text("Sign In")
+        }).bold()
+            .padding(.all)
+            .foregroundStyle(.white)
+            .frame(width: UIScreen.main.bounds.width / 1.5)
+            .background(.black)
+            .cornerRadius(50)
+    }
+}
 
 
 #Preview {

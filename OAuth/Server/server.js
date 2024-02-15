@@ -52,6 +52,22 @@ app.post('/google', (req, res) => {
     res.status(200).json({message: 'User signed up successfully'});
 });
 
+app.post('/github', (req, res) => {
+    const {email, name, token} = req.body;
+    let username = Math.random().toString(36).substring(2, 12);
+
+    if (username in users && users[username].github !== undefined) {
+        res.status(200).json({message: 'User logged in successfully'});
+        return
+    }
+
+    users[username] = {
+        username: username, password: undefined, name: name, google: undefined, github: token
+    };
+
+    res.status(200).json({message: 'User signed up successfully'});
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });

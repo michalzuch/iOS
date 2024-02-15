@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		943A3EB42B71688B008A691A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 943A3EB32B71688B008A691A /* GoogleSignIn */; };
 		943A3EB62B71688B008A691A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 943A3EB52B71688B008A691A /* GoogleSignInSwift */; };
+		945BBB862B7D17E90077A9B9 /* OAuth2 in Frameworks */ = {isa = PBXBuildFile; productRef = 945BBB852B7D17E90077A9B9 /* OAuth2 */; };
 		946DC9C32B6FF1C7008F6FAA /* InputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946DC9C22B6FF1C6008F6FAA /* InputFieldView.swift */; };
 		946DC9C92B7014B1008F6FAA /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946DC9C82B7014B1008F6FAA /* LogInView.swift */; };
 		946DC9CB2B7014D5008F6FAA /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946DC9CA2B7014D5008F6FAA /* SignUpView.swift */; };
@@ -43,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				945BBB862B7D17E90077A9B9 /* OAuth2 in Frameworks */,
 				943A3EB42B71688B008A691A /* GoogleSignIn in Frameworks */,
 				943A3EB62B71688B008A691A /* GoogleSignInSwift in Frameworks */,
 			);
@@ -137,6 +139,7 @@
 			packageProductDependencies = (
 				943A3EB32B71688B008A691A /* GoogleSignIn */,
 				943A3EB52B71688B008A691A /* GoogleSignInSwift */,
+				945BBB852B7D17E90077A9B9 /* OAuth2 */,
 			);
 			productName = OAuth;
 			productReference = 94D798D92B46472800F85C45 /* OAuth.app */;
@@ -168,6 +171,7 @@
 			mainGroup = 94D798D02B46472800F85C45;
 			packageReferences = (
 				943A3EB22B71688B008A691A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				945BBB842B7D17E90077A9B9 /* XCRemoteSwiftPackageReference "OAuth2" */,
 			);
 			productRefGroup = 94D798DA2B46472800F85C45 /* Products */;
 			projectDirPath = "";
@@ -421,6 +425,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		945BBB842B7D17E90077A9B9 /* XCRemoteSwiftPackageReference "OAuth2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/p2/OAuth2";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.3.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -433,6 +445,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 943A3EB22B71688B008A691A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		945BBB852B7D17E90077A9B9 /* OAuth2 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 945BBB842B7D17E90077A9B9 /* XCRemoteSwiftPackageReference "OAuth2" */;
+			productName = OAuth2;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

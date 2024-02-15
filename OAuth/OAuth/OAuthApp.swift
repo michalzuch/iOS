@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import GoogleSignIn
+import OAuth2
 
 @main
 struct OAuthApp: App {
@@ -18,7 +19,11 @@ struct OAuthApp: App {
             ContentView()
                 .environmentObject(userAuthentication)
                 .onOpenURL { url in
-                    GIDSignIn.sharedInstance.handle(url)
+                    if url.scheme == "com.googleusercontent.apps.96595227358-58f7tfjccc9s03nfml02ppk1rttluti0" {
+                        GIDSignIn.sharedInstance.handle(url)
+                    } else {
+                        userAuthentication.oauth2.handleRedirectURL(url)
+                    }
                 }
         }
     }

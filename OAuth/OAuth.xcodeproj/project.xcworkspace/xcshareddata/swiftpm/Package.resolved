@@ -35,6 +35,15 @@
         "revision" : "cee3c709307912d040bd1e06ca919875a92339c6",
         "version" : "2.0.0"
       }
+    },
+    {
+      "identity" : "oauth2",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/p2/OAuth2",
+      "state" : {
+        "revision" : "b6faebbc4470c80f2c54e4f6fe542c29a95a2213",
+        "version" : "5.3.3"
+      }
     }
   ],
   "version" : 2
