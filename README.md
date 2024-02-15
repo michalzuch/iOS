@@ -49,14 +49,14 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 
 ---
 
-## [OAuth](https://github.com/michalzuch/iOS/tree/main/OAuth/OAuth) (Work In Progress)
+## [OAuth](https://github.com/michalzuch/iOS/tree/main/OAuth/OAuth)
 <img src="assets/OAuth.png" width=50%/>
 
 ✅ 3.0 Logging in via the server application  
 ✅ 3.5 Signing up via the server application  
-❌ 4.0 Logging in via Google  
-❌ 4.5 Logging in via GitHub / Facebook  
-❌ 5.0 Save OAuth2 credentials on the server side
+✅ 4.0 Logging in via Google  
+✅ 4.5 Logging in via GitHub / Facebook  
+✅ 5.0 Save OAuth2 credentials on the server side
 
 ---
 
