@@ -173,8 +173,35 @@ app.post('/products', (req, res) => {
     res.sendStatus(200);
 });
 
+function generateOrderData(orderedProducts) {
+    const number = 'N' + Math.floor(100000000 + Math.random() * 900000000).toString();
+    let totalCost = 0;
+    const products = {};
+
+    for (const productName in orderedProducts) {
+        const quantity = orderedProducts[productName];
+        const product = productsData.find((p) => p.name === productName);
+
+        if (product) {
+            products[productName] = quantity;
+            totalCost += product.price * quantity;
+        }
+    }
+
+    return {
+        'number': number,
+        'paid': true,
+        'date': new Date().toISOString(),
+        'totalCost': totalCost,
+        'products': orderedProducts
+    }
+}
+
 app.post('/card_payment', (req, res) => {
-    res.sendStatus(200);
+    const {orderedProducts} = req.body;
+    const orderData = generateOrderData(orderedProducts);
+    console.log(orderData)
+    res.json(orderData).status(200);
 })
 
 app.listen(3000, () => {
