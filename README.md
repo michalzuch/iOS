@@ -3,6 +3,8 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 
 > Although these projects were created as part of my classes, I have dedicated extra effort to make them well-designed and carefully crafted. While they are relatively simple, they have been developed with care and attention to detail.
 
+> Aplications are in "Ready to deliver" state, however I am still working on improving their quality.
+
 ![All Apps](./assets/All%20Apps.png)
 
 ## [Calculator](https://github.com/michalzuch/iOS/tree/main/Calculator/Calculator)
@@ -60,14 +62,14 @@ Projects built during Mobile devices programming - Apple iOS classes at Jagiello
 
 ---
 
-## [Payments](https://github.com/michalzuch/iOS/tree/main/Payments/Payments) (Work In Progress)
+## [Payments](https://github.com/michalzuch/iOS/tree/main/Payments/Payments)
 <img src="assets/Payments.png" width=50%/>
 
 ✅ 3.0 Payment form + mocking by the server application   
-❌ 3.5 Local payment model  
-❌ 4.0 List of purchased (paid) products + model  
-❌ 4.5 Stripe implementation  
-❌ 5.0 Add card scanning
+✅ 3.5 Local payment model  
+✅ 4.0 List of purchased (paid) products + model  
+✅ 4.5 Stripe implementation  
+✅ 5.0 Add card scanning
 
 ---
 
