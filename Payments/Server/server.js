@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const bodyParser = require('body-parser');
+require('dotenv').config();
+const stripe = require('stripe')(process.env.API_KEY);
 
 app.use(bodyParser.json());
 
@@ -200,9 +202,32 @@ function generateOrderData(orderedProducts) {
 app.post('/card_payment', (req, res) => {
     const {orderedProducts} = req.body;
     const orderData = generateOrderData(orderedProducts);
-    console.log(orderData)
     res.json(orderData).status(200);
 })
+
+app.post('/payment_sheet', async (req, res) => {
+    const {amount} = req.body;
+    const customer = await stripe.customers.create();
+    const ephemeralKey = await stripe.ephemeralKeys.create(
+        {customer: customer.id},
+        {apiVersion: '2023-10-16'}
+    );
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount * 100,
+        currency: 'usd',
+        customer: customer.id,
+        automatic_payment_methods: {
+            enabled: true
+        }
+    });
+
+    res.json({
+        paymentIntent: paymentIntent.client_secret,
+        ephemeralKey: ephemeralKey.secret,
+        customer: customer.id,
+        publishableKey: process.env.PUSHABLE_KEY
+    });
+});
 
 app.listen(3000, () => {
     console.log('Server is listening on http://localhost:3000');

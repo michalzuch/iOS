@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Stripe
 
 @main
 struct PaymentsApp: App {
@@ -20,6 +21,9 @@ struct PaymentsApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onOpenURL { incomingURL in
+                    StripeAPI.handleURLCallback(with: incomingURL)
+                }
         }
     }
 }

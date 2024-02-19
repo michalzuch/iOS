@@ -79,9 +79,8 @@ struct PaymentConfirmationView: View {
     }
     
     func makePayment() {
-        let API = "http://127.0.0.1:3000"
         let dispatchGroup = DispatchGroup()
-        if let url = URL(string: API + "/card_payment") {
+        if let url = URL(string: PaymentsApp().API + "/card_payment") {
             let orderedProducts = bag.items.reduce(into: [String: Int] ()) {acc, pair in
                 let productName = pair.key.name
                 acc[productName!] = pair.value

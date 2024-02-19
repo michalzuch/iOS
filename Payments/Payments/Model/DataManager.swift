@@ -180,4 +180,15 @@ extension PaymentsApp {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.date(from: shortDate)
     }
+    
+    func calculateTotalBagValue(filteredProducts: [Product], bag: Bag) -> Int {
+        var totalValue: Int = 0
+        
+        for product in filteredProducts {
+            let amount = Int(bag.getValue(product: product).wrappedValue)
+            totalValue = totalValue + amount * Int(product.price)
+        }
+        
+        return totalValue
+    }
 }

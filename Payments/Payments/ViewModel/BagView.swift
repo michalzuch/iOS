@@ -13,13 +13,13 @@ struct BagView: View {
     @State var isPaymentFormPresented = false
     @State var showAlert = false
     @State var alertMessage = ""
-
+    
     var filteredProducts: [Product] {
         products.filter { product in
             bag.getValue(product: product).wrappedValue != 0
         }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -36,10 +36,10 @@ struct BagView: View {
                     }
                 }
                 .navigationTitle("Bag")
-
-                MakeOrderButton(bag: bag, isPaymentFormPresented: $isPaymentFormPresented)
+                
+                MakeOrderButton(bag: bag, isPaymentFormPresented: $isPaymentFormPresented, totalPrice: PaymentsApp().calculateTotalBagValue(filteredProducts: filteredProducts, bag: bag))
                     .sheet(isPresented: $isPaymentFormPresented, content: {
-                        PaymentFormView(isPresented: $isPaymentFormPresented, products: filteredProducts, bag: bag, showAlert: $showAlert, alertMessage: $alertMessage)
+                        PaymentFormView(isPresented: $isPaymentFormPresented, products: filteredProducts, bag: bag, showAlert: $showAlert, alertMessage: $alertMessage, model: StripeManager(amount: PaymentsApp().calculateTotalBagValue(filteredProducts: filteredProducts, bag: bag), bag: bag, isPresented: $isPaymentFormPresented))
                     })
             }
         }
@@ -52,13 +52,14 @@ struct BagView: View {
 struct MakeOrderButton: View {
     @ObservedObject var bag: Bag
     @Binding var isPaymentFormPresented: Bool
-
+    let totalPrice: Int
+    
     var body: some View {
         Button(action: {
             self.isPaymentFormPresented.toggle()
         }, label: {
             Spacer()
-            Text("Buy")
+            Text("$\(totalPrice)")
                 .bold()
                 .foregroundStyle(.white)
                 .padding()
