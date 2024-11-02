@@ -24,5 +24,5 @@ let operations: [Operation: (Double, Double) -> Double] = [
     .substract: (-),
     .multiply: (*),
     .divide: (/),
-    .power: pow
+    .power: pow,
 ]
